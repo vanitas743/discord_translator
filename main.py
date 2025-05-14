@@ -39,7 +39,7 @@ async def on_message(message):
 def translate_to_english(text):
     placeholder_map = {
         "葬送": "__SOUSOU__",
-        "ふわあに": "__FUWAHNI__"
+        "ふわあに": "[[FUWAHNI]]"
     }
 
     for word, placeholder in placeholder_map.items():
