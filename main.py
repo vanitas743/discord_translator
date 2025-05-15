@@ -40,6 +40,8 @@ def translate_to_english(text):
     placeholder_map = {
         "葬送": "__SOUSOU__",
         "ふわあに": "[[FUWAHNI]]"
+        "暇さん": "[[himasan]]"
+        "ただ暇な人":"[[tadahimanahito]]"
     }
 
     for word, placeholder in placeholder_map.items():
