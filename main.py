@@ -45,7 +45,7 @@ async def on_message(message):
 
     await bot.process_commands(message)
 
-def translate_to_english(text):
+def translate(text, source_lang, target_lang):
     placeholder_map = {
         "葬送": "__SOUSOU__",
         "ふわあに": "[[FUWAHNI]]",
