@@ -20,19 +20,28 @@ async def on_message(message):
     if message.author.bot:
         return
 
-    if any('\u3040' <= c <= '\u30FF' or '\u4E00' <= c <= '\u9FFF' for c in message.content):
-        translated = translate_to_english(message.content)
+    author_name = message.author.display_name
+    short_name = author_name[:4]
 
-        author_name = message.author.display_name
-        short_name = author_name[:4]  
+    translated_channel = discord.utils.get(message.guild.text_channels, name="translated")
+    if not translated_channel:
+        print("⚠️ 'translated' チャンネルが見つかりません")
+        return
 
-        translated_channel = discord.utils.get(message.guild.text_channels, name="translated")
-        if translated_channel:
-            await translated_channel.send(
-                f"【{short_name}】: {message.content}\n⬇\n**{translated}**"
-            )
-        else:
-            print("⚠️ 'translated' チャンネルが見つかりません")
+    content = message.content
+    channel_name = message.channel.name
+
+    if channel_name == "english":
+        translated = translate(text=content, source_lang="EN", target_lang="JA")
+        await translated_channel.send(
+            f"【{short_name}】: {content}\n⬇\n**{translated}**"
+        )
+    
+    elif any('\u3040' <= c <= '\u30FF' or '\u4E00' <= c <= '\u9FFF' for c in content):
+        translated = translate(text=content, source_lang="JA", target_lang="EN")
+        await translated_channel.send(
+            f"【{short_name}】: {content}\n⬇\n**{translated}**"
+        )
 
     await bot.process_commands(message)
 
@@ -41,7 +50,8 @@ def translate_to_english(text):
         "葬送": "__SOUSOU__",
         "ふわあに": "[[FUWAHNI]]",
         "暇さん": "[[himasan]]",
-        "ただ暇な人":"[[tadahimanahito]]"
+        "ただ暇な人":"[[tadahimanahito]]",
+        "ラスアタ": "[[LASTATK]]"
     }
 
     for word, placeholder in placeholder_map.items():
@@ -51,8 +61,8 @@ def translate_to_english(text):
     params = {
         "auth_key": DEEPL_API_KEY,
         "text": text,
-        "source_lang": "JA",
-        "target_lang": "EN"
+        "source_lang": source_lang,
+        "target_lang": target_lang
     }
     response = requests.post(url, data=params)
     if response.status_code != 200:
@@ -62,8 +72,10 @@ def translate_to_english(text):
     translated = response.json()["translations"][0]["text"]
 
     for word, placeholder in placeholder_map.items():
-        translated = translated.replace(placeholder, f"'{word}'")
+        if word == "ラスアタ":
+            translated = translated.replace(placeholder, "snipe")
+        else:
+            translated = translated.replace(placeholder, f"'{word}'")
 
     return translated
-
 bot.run(DISCORD_TOKEN)
