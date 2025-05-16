@@ -110,15 +110,13 @@ async def check_announcements():
         response = requests.get(url, headers=headers, timeout=10)
         soup = BeautifulSoup(response.text, "html.parser")
         
-        a_tags = soup.select("table.table a")
-        if len(a_tags) < 2:
+        first_a_tag = soup.select_one("table.table a")
+        if not first_a_tag:
             return
-        second_a_tag = a_tags[1]
 
-        title = second_a_tag.text.strip()
-        href = second_a_tag["href"]
+        title = first_a_tag.text.strip()
+        href = first_a_tag["href"]
         full_url = f"https://announcement.ekgamesserver.com{href}"
-
         if "ボーナスクーポン" in title:
             if collection.find_one({"url": full_url}):
                 return
