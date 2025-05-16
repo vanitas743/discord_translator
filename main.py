@@ -126,7 +126,7 @@ async def check_announcements():
 
             coupon_channel = discord.utils.get(bot.get_all_channels(), name="coupon")
             if coupon_channel:
-                await coupon_channel.send(f"[coupon inc] {title}\n{full_url}")
+                await coupon_channel.send(f" {title}\n{full_url}")
 
     except Exception as e:
         print(f"⚠️ クーポン通知エラー: {e}")
