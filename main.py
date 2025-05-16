@@ -101,8 +101,6 @@ def translate(text, source_lang, target_lang):
     
 @tasks.loop(minutes=5)
 async def check_announcements():
-    global last_seen_link
-
     url = "https://announcement.ekgamesserver.com/?ppk=42f47521-f47a-496b-9e90-af01f0f10c37&l=ja"
     headers = {"User-Agent": "Mozilla/5.0"}
 
@@ -117,6 +115,7 @@ async def check_announcements():
         title = first_a_tag.text.strip()
         href = first_a_tag["href"]
         full_url = f"https://announcement.ekgamesserver.com{href}"
+
         if "ボーナスクーポン" in title:
             if collection.find_one({"url": full_url}):
                 return
@@ -125,7 +124,7 @@ async def check_announcements():
             for guild in bot.guilds:
                 coupon_channel = discord.utils.get(guild.text_channels, name="coupon")
                 if coupon_channel:
-                    await coupon_channel.send(f" {title}\n{full_url}")            
+                    await coupon_channel.send(f" {title}\n{full_url}")
 
     except Exception as e:
         print(f"⚠️ クーポン通知エラー: {e}")
