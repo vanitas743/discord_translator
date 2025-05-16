@@ -1,4 +1,4 @@
-import discord #test
+import discord 
 from discord.ext import commands, tasks
 import requests
 from bs4 import BeautifulSoup
@@ -122,9 +122,10 @@ async def check_announcements():
                 return
             collection.insert_one({"url": full_url})
 
-            coupon_channel = discord.utils.get(bot.get_all_channels(), name="coupon")
-            if coupon_channel:
-                await coupon_channel.send(f" {title}\n{full_url}")
+            for guild in bot.guilds:
+                coupon_channel = discord.utils.get(guild.text_channels, name="coupon")
+                if coupon_channel:
+                    await coupon_channel.send(f" {title}\n{full_url}")            
 
     except Exception as e:
         print(f"⚠️ クーポン通知エラー: {e}")
