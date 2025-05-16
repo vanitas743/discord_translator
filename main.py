@@ -11,10 +11,24 @@ intents = discord.Intents.default()
 intents.message_content = True
 
 bot = commands.Bot(command_prefix="!", intents=intents)
+
+def load_last_link():
+    try:
+        with open("last_link.txt", "r") as f:
+            return f.read().strip()
+    except:
+        return None
+        
+def save_last_link(link):
+    with open("last_link.txt", "w") as f:
+        f.write(link)
+        
 last_seen_link = None
 
 @bot.event
 async def on_ready():
+    global last_seen_link
+    last_seen_link = load_last_link()
     print(f'✅ Bot logged in as {bot.user}')
     check_announcements.start() 
 
@@ -102,6 +116,7 @@ async def check_announcements():
 
         if "ボーナスクーポン" in title and href != last_seen_link:
             last_seen_link = href
+            save_last_link(href)
             coupon_channel = discord.utils.get(bot.get_all_channels(), name="coupon")
             if coupon_channel:
                 full_url = f"https://announcement.ekgamesserver.com{href}"
