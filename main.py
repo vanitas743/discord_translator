@@ -2,10 +2,16 @@ import discord #test
 from discord.ext import commands, tasks
 import requests
 from bs4 import BeautifulSoup
+from pymongo import MongoClient
 import os
 
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 DEEPL_API_KEY = os.getenv("DEEPL_API_KEY")
+MONGO_URI = os.getenv("MONGO_URI")
+
+mongo_client = MongoClient(MONGO_URI)
+db = mongo_client["ekgames"]
+collection = db["notified_links"]
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -117,21 +123,24 @@ async def check_announcements():
     try:
         response = requests.get(url, headers=headers, timeout=10)
         soup = BeautifulSoup(response.text, "html.parser")
-
-        first_a_tag = soup.select_one("table.table a")
-        if not first_a_tag:
+        
+        a_tags = soup.select("table.table a")
+        if len(a_tags) < 2:
             return
+        second_a_tag = a_tags[1]
 
-        title = first_a_tag.text.strip()
-        href = first_a_tag["href"]
+        title = second_a_tag.text.strip()
+        href = second_a_tag["href"]
+        full_url = f"https://announcement.ekgamesserver.com{href}"
 
-        if "ボーナスクーポン" in title and href != last_seen_link:
-            last_seen_link = href
-            save_last_link(href)
+        if "ボーナスクーポン" in title:
+            if collection.find_one({"url": full_url}):
+                return
+            collection.insert_one({"url": full_url})
+
             coupon_channel = discord.utils.get(bot.get_all_channels(), name="coupon")
             if coupon_channel:
-                full_url = f"https://announcement.ekgamesserver.com{href}"
-                await coupon_channel.send(f"{title}\n{full_url}")
+                await coupon_channel.send(f"[coupon inc] {title}\n{full_url}")
 
     except Exception as e:
         print(f"⚠️ クーポン通知エラー: {e}")
