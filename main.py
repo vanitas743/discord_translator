@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import requests
+from bs4 import BeautifulSoup
 import os
 
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
@@ -10,10 +11,12 @@ intents = discord.Intents.default()
 intents.message_content = True
 
 bot = commands.Bot(command_prefix="!", intents=intents)
+last_seen_link = None
 
 @bot.event
 async def on_ready():
     print(f'✅ Bot logged in as {bot.user}')
+    check_announcements.start() 
 
 @bot.event
 async def on_message(message):
@@ -78,4 +81,32 @@ def translate(text, source_lang, target_lang):
             translated = translated.replace(placeholder, f"'{word}'")
 
     return translated
+    
+@tasks.loop(minutes=5)
+async def check_announcements():
+    global last_seen_link
+
+    url = "https://announcement.ekgamesserver.com/?ppk=42f47521-f47a-496b-9e90-af01f0f10c37&l=ja"
+    headers = {"User-Agent": "Mozilla/5.0"}
+
+    try:
+        response = requests.get(url, headers=headers, timeout=10)
+        soup = BeautifulSoup(response.text, "html.parser")
+
+        first_a_tag = soup.select_one("table.table a")
+        if not first_a_tag:
+            return
+
+        title = first_a_tag.text.strip()
+        href = first_a_tag["href"]
+
+        if "ボーナスクーポン" in title and href != last_seen_link:
+            last_seen_link = href
+            coupon_channel = discord.utils.get(bot.get_all_channels(), name="coupon")
+            if coupon_channel:
+                full_url = f"https://announcement.ekgamesserver.com{href}"
+                await coupon_channel.send(f"[coupon inc] {title}\n{full_url}")
+
+    except Exception as e:
+        print(f"⚠️ クーポン通知エラー: {e}")
 bot.run(DISCORD_TOKEN)
