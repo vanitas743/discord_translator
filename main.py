@@ -107,25 +107,24 @@ async def check_announcements():
     try:
         response = requests.get(url, headers=headers, timeout=10)
         soup = BeautifulSoup(response.text, "html.parser")
-        
-        first_a_tag = soup.select_one("table.table a")
-        if not first_a_tag:
-            return
 
-        title = first_a_tag.text.strip()
-        href = first_a_tag["href"]
-        full_url = f"https://announcement.ekgamesserver.com{href}"
+        for a_tag in soup.select("table.table a"):
+            title = a_tag.text.strip()
+            href = a_tag["href"]
+            full_url = f"https://announcement.ekgamesserver.com{href}"
 
-        if "ボーナスクーポン" in title:
-            if collection.find_one({"url": full_url}):
-                return
-            collection.insert_one({"url": full_url})
+            if "ボーナスクーポン" in title:
+                if collection.find_one({"title": title}):
+                    continue
+                collection.insert_one({"title": title, "url": full_url})
 
-            for guild in bot.guilds:
-                coupon_channel = discord.utils.get(guild.text_channels, name="coupon")
-                if coupon_channel:
-                    await coupon_channel.send(f" {title}\n{full_url}")
+                for guild in bot.guilds:
+                    coupon_channel = discord.utils.get(guild.text_channels, name="coupon")
+                    if coupon_channel:
+                        await coupon_channel.send(f"{title}\n{full_url}")
+                break  
 
     except Exception as e:
         print(f"⚠️ クーポン通知エラー: {e}")
+
 bot.run(DISCORD_TOKEN)
