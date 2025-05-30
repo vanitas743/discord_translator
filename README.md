@@ -30,7 +30,7 @@
 
 書き換えが完了してから１分後くらいにbotに反映されます。
 
-##お役立ちリンク
+## お役立ちリンク
 
 [装備覚醒効率](https://docs.google.com/spreadsheets/d/1778ykEIFAdwmHKsvD7eO6IZwJJDqwM1aIkb6-1SG3fs/edit?gid=582548854#gid=582548854)
 
