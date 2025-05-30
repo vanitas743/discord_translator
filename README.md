@@ -30,6 +30,22 @@
 
 書き換えが完了してから１分後くらいにbotに反映されます。
 
+##お役立ちリンク
+
+[装備覚醒効率](https://docs.google.com/spreadsheets/d/1778ykEIFAdwmHKsvD7eO6IZwJJDqwM1aIkb6-1SG3fs/edit?gid=582548854#gid=582548854)
+
+[幻想Aの装備の利用効率(エゴか村か）](https://github.com/vanitas743/discord_translator/blob/main/casual_player_path.pdf)
+
+[マスタリー効率](https://docs.google.com/spreadsheets/d/1tvkYtDlSYwzMNbKAKzib7faO735zEF8lbaB-u7hQWFs/edit?gid=925000323#gid=925000323)
+
+[次元の欠片ギア](https://docs.google.com/spreadsheets/d/1SSxR3do2473shLlToiq-zJzLkjfY7rl-4jkmwtC7aoE/edit?gid=1538649277#gid=1538649277)
+
+[星座](https://docs.google.com/spreadsheets/d/1Zxched7d37tyqGwqLSZYUcTD3dI6QDPyqiPSQ-h-_00/edit?gid=1366379943#gid=1366379943)
+
+[お知らせ](https://announcement.ekgamesserver.com/?ppk=42f47521-f47a-496b-9e90-af01f0f10c37&l=ja)
+
+
+
 ## 動作
 Railwayを使っており、月500時間の制限があるため1am ~ 6am(jst)くらいの時間でbotを停止させることがあるかもしれません。
 
