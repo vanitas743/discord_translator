@@ -13,7 +13,7 @@
 
 [星座(zodiac)](https://docs.google.com/spreadsheets/d/1Zxched7d37tyqGwqLSZYUcTD3dI6QDPyqiPSQ-h-_00/edit?gid=1366379943#gid=1366379943)
 
-[ペット編成](https://xanthir.com/fclass/pets/)
+[ペット編成(pet optimiser)](https://xanthir.com/fclass/pets/)
 
 [お知らせ(info ja)](https://announcement.ekgamesserver.com/?ppk=42f47521-f47a-496b-9e90-af01f0f10c37&l=ja)
 
