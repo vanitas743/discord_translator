@@ -1,7 +1,7 @@
-# discord翻訳bot
+# discord_translator
 ばにたすᓀ‸ᓂ
 
-## お役立ちリンク
+## お役立ちリンク(Links)
 
 [装備覚醒効率(awakening efficiency)](https://docs.google.com/spreadsheets/d/1778ykEIFAdwmHKsvD7eO6IZwJJDqwM1aIkb6-1SG3fs/edit?gid=582548854#gid=582548854)
 
@@ -19,7 +19,7 @@
 
 
 
-## 機能  
+## 機能 (Features)
 - 全チャンネルの日本語を「translated」チャンネルに翻訳して出力。  
   <sub>Translates all Japanese messages from all channels and sends them to the "translated" channel.</sub>  
 
