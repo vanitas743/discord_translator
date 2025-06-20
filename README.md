@@ -18,14 +18,21 @@
 [お知らせ(info ja)](https://announcement.ekgamesserver.com/?ppk=42f47521-f47a-496b-9e90-af01f0f10c37&l=ja)
 
 
-## 機能
-- 全チャンネルの日本語を「translated」チャンネルに翻訳して出力。
 
-- 「english」チャンネル内の英語を「translated」チャンネルに翻訳して出力。
+## 機能  
+- 全チャンネルの日本語を「translated」チャンネルに翻訳して出力。  
+  <sub>Translates all Japanese messages from all channels and sends them to the "translated" channel.</sub>  
 
-- 新しいクーポンの情報があれば「coupon」チャンネルに送信。
+- 「english」チャンネル内の英語を「translated」チャンネルに翻訳して出力。  
+  <sub>Translates English messages from the "english" channel and sends them to the "translated" channel.</sub>  
 
-ご自身のサーバーで使うときは上記の名前のチャンネルを作ってください。（大文字小文字、空白に注意）
+- 新しいクーポンの情報があれば「coupon」チャンネルに送信。  
+  <sub>Sends new coupon information to the "coupon" channel when available.</sub>  
+
+---
+
+ご自身のサーバーで使うときは上記の名前のチャンネルを作ってください。（大文字小文字、空白に注意）  
+<sub>Please create channels with the exact names shown above when using this bot in your server (case and spacing matter).</sub>
 
 他に機能を追加したい場合は、main.pyを書き換えるかdiscordのdm等で追加してほしい機能を教えてください。
 
