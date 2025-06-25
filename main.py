@@ -35,6 +35,7 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 
 @bot.event
 async def on_ready():
+    await bot.tree.sync()
     print(f'✅ Bot logged in as {bot.user}')
     check_announcements.start() 
 
@@ -142,5 +143,19 @@ async def check_announcements():
 
     except Exception as e:
         print(f"⚠️ クーポン通知エラー: {e}")
+        
+@bot.tree.command(name="help_links", description="お役立ちリンク集を表示します")
+async def help_links(interaction: discord.Interaction):
+    message = (
+        "📚 **お役立ちリンク集**\n\n"
+        "🔗 [装備覚醒効率(awakening efficiency)](https://docs.google.com/spreadsheets/d/1778ykEIFAdwmHKsvD7eO6IZwJJDqwM1aIkb6-1SG3fs/edit?gid=582548854#gid=582548854)\n"
+        "📄 [幻想Aの装備利用効率(fantA sword usage)](https://github.com/vanitas743/discord_translator/blob/main/casual_player_path.pdf)\n"
+        "📊 [マスタリー効率(mastery)](https://docs.google.com/spreadsheets/d/1tvkYtDlSYwzMNbKAKzib7faO735zEF8lbaB-u7hQWFs/edit?gid=925000323#gid=925000323)\n"
+        "💎 [次元の欠片ギア(dimensional shard gear)](https://docs.google.com/spreadsheets/d/1SSxR3do2473shLlToiq-zJzLkjfY7rl-4jkmwtC7aoE/edit?gid=1538649277#gid=1538649277)\n"
+        "🌌 [星座(zodiac)](https://docs.google.com/spreadsheets/d/1Zxched7d37tyqGwqLSZYUcTD3dI6QDPyqiPSQ-h-_00/edit?gid=1366379943#gid=1366379943)\n"
+        "🐾 [ペット編成(pet optimiser)](https://xanthir.com/fclass/pets/)\n"
+        "📰 [お知らせ(info ja)](https://announcement.ekgamesserver.com/?ppk=42f47521-f47a-496b-9e90-af01f0f10c37&l=ja)"
+    )
+    await interaction.response.send_message(message)
 
 bot.run(DISCORD_TOKEN)
