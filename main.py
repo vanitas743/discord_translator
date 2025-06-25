@@ -20,11 +20,15 @@ intents.message_content = True
 bot = commands.Bot(command_prefix="!", intents=intents)
 
 
+synced = False
+
 @bot.event
 async def on_ready():
-    await bot.tree.sync()
+    global synced
+    if not synced:
+        await bot.tree.sync()
+        synced = True
     print(f'✅ Bot logged in as {bot.user}')
-    check_announcements.start() 
 
 @bot.event
 async def on_message(message):
