@@ -1,6 +1,8 @@
 # discord_translator
 ばにたすᓀ‸ᓂ
 
+https://discord.gg/Haqj3ntC
+
 ## お役立ちリンク(Links)
 
 [装備覚醒効率(awakening efficiency)](https://docs.google.com/spreadsheets/d/1778ykEIFAdwmHKsvD7eO6IZwJJDqwM1aIkb6-1SG3fs/edit?gid=582548854#gid=582548854)
