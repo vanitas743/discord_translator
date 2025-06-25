@@ -140,5 +140,68 @@ async def check_announcements():
     except Exception as e:
         print(f"⚠️ クーポン通知エラー: {e}")
         
+def is_japanese(locale: str) -> bool:
+    return locale.startswith("ja")
+
+@bot.tree.command(name="help_links", description="Show helpful links")
+async def help_links(interaction: discord.Interaction):
+    await interaction.response.defer()
+    if is_japanese(interaction.locale):
+        message = (
+            "\U0001F4DA **お役立ちリンク集**\n\n"
+            "\U0001F517 [装備覚醒効率](https://docs.google.com/spreadsheets/d/1778ykEIFAdwmHKsvD7eO6IZwJJDqwM1aIkb6-1SG3fs/edit?gid=582548854#gid=582548854)\n"
+            "\U0001F4C4 [幻想Aの装備利用効率](https://github.com/vanitas743/discord_translator/blob/main/casual_player_path.pdf)\n"
+            "\U0001F4CA [マスタリー効率](https://docs.google.com/spreadsheets/d/1tvkYtDlSYwzMNbKAKzib7faO735zEF8lbaB-u7hQWFs/edit?gid=925000323#gid=925000323)\n"
+            "\U0001F48E [次元の欠片ギア](https://docs.google.com/spreadsheets/d/1SSxR3do2473shLlToiq-zJzLkjfY7rl-4jkmwtC7aoE/edit?gid=1538649277#gid=1538649277)\n"
+            "\U0001F30C [星座](https://docs.google.com/spreadsheets/d/1Zxched7d37tyqGwqLSZYUcTD3dI6QDPyqiPSQ-h-_00/edit?gid=1366379943#gid=1366379943)\n"
+            "\U0001F43E [ペット編成](https://xanthir.com/fclass/pets/)\n"
+            "\U0001F4F0 [お知らせ](https://announcement.ekgamesserver.com/?ppk=42f47521-f47a-496b-9e90-af01f0f10c37&l=ja)"
+        )
+    else:
+        message = (
+            "\U0001F4DA **Helpful Links**\n\n"
+            "\U0001F517 [Awakening Efficiency](https://docs.google.com/spreadsheets/d/1778ykEIFAdwmHKsvD7eO6IZwJJDqwM1aIkb6-1SG3fs/edit?gid=582548854#gid=582548854)\n"
+            "\U0001F4C4 [FantA Sword Usage](https://github.com/vanitas743/discord_translator/blob/main/casual_player_path.pdf)\n"
+            "\U0001F4CA [Mastery Efficiency](https://docs.google.com/spreadsheets/d/1tvkYtDlSYwzMNbKAKzib7faO735zEF8lbaB-u7hQWFs/edit?gid=925000323#gid=925000323)\n"
+            "\U0001F48E [Dimensional Shard Gear](https://docs.google.com/spreadsheets/d/1SSxR3do2473shLlToiq-zJzLkjfY7rl-4jkmwtC7aoE/edit?gid=1538649277#gid=1538649277)\n"
+            "\U0001F30C [Zodiac Info](https://docs.google.com/spreadsheets/d/1Zxched7d37tyqGwqLSZYUcTD3dI6QDPyqiPSQ-h-_00/edit?gid=1366379943#gid=1366379943)\n"
+            "\U0001F43E [Pet Optimiser](https://xanthir.com/fclass/pets/)\n"
+            "\U0001F4F0 [Info JA](https://announcement.ekgamesserver.com/?ppk=42f47521-f47a-496b-9e90-af01f0f10c37&l=ja)"
+        )
+    await interaction.followup.send(message)
+
+async def send_url(interaction: discord.Interaction, label_jp: str, label_en: str, url: str):
+    await interaction.response.defer()
+    label = label_jp if is_japanese(interaction.locale) else label_en
+    await interaction.followup.send(f"{label}:\n{url}")
+
+@bot.tree.command(name="gearawakening", description="Show awakening efficiency link")
+async def gear_awakening(interaction: discord.Interaction):
+    await send_url(interaction, "\U0001F517 装備覚醒効率", "\U0001F517 Awakening Efficiency", "https://docs.google.com/spreadsheets/d/1778ykEIFAdwmHKsvD7eO6IZwJJDqwM1aIkb6-1SG3fs/edit?gid=582548854#gid=582548854")
+
+@bot.tree.command(name="fantasword", description="Show FantA sword usage PDF")
+async def fantasword(interaction: discord.Interaction):
+    await send_url(interaction, "\U0001F4C4 幻想A装備利用効率", "\U0001F4C4 FantA Sword Usage", "https://github.com/vanitas743/discord_translator/blob/main/casual_player_path.pdf")
+
+@bot.tree.command(name="mastery", description="Show mastery efficiency link")
+async def mastery(interaction: discord.Interaction):
+    await send_url(interaction, "\U0001F4CA マスタリー効率", "\U0001F4CA Mastery Efficiency", "https://docs.google.com/spreadsheets/d/1tvkYtDlSYwzMNbKAKzib7faO735zEF8lbaB-u7hQWFs/edit?gid=925000323#gid=925000323")
+
+@bot.tree.command(name="dimshard", description="Show dimensional shard gear link")
+async def dimshard(interaction: discord.Interaction):
+    await send_url(interaction, "\U0001F48E 次元の欠片ギア", "\U0001F48E Dimensional Shard Gear", "https://docs.google.com/spreadsheets/d/1SSxR3do2473shLlToiq-zJzLkjfY7rl-4jkmwtC7aoE/edit?gid=1538649277#gid=1538649277")
+
+@bot.tree.command(name="zodiac", description="Show zodiac info link")
+async def zodiac(interaction: discord.Interaction):
+    await send_url(interaction, "\U0001F30C 星座", "\U0001F30C Zodiac Info", "https://docs.google.com/spreadsheets/d/1Zxched7d37tyqGwqLSZYUcTD3dI6QDPyqiPSQ-h-_00/edit?gid=1366379943#gid=1366379943")
+
+@bot.tree.command(name="petoptimizer", description="Show pet optimiser tool")
+async def petoptimizer(interaction: discord.Interaction):
+    await send_url(interaction, "\U0001F43E ペット編成", "\U0001F43E Pet Optimiser", "https://xanthir.com/fclass/pets/")
+
+@bot.tree.command(name="couponinfo", description="Show info page URL")
+async def couponinfo(interaction: discord.Interaction):
+    await send_url(interaction, "\U0001F4F0 お知らせ", "\U0001F4F0 Info JA", "https://announcement.ekgamesserver.com/?ppk=42f47521-f47a-496b-9e90-af01f0f10c37&l=ja")
+
 
 bot.run(DISCORD_TOKEN)
