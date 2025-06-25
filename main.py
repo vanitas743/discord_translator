@@ -157,5 +157,56 @@ async def help_links(interaction: discord.Interaction):
         "📰 [お知らせ(info ja)](https://announcement.ekgamesserver.com/?ppk=42f47521-f47a-496b-9e90-af01f0f10c37&l=ja)"
     )
     await interaction.response.send_message(message)
+    
+@bot.tree.command(name="gearawakening", description="装備覚醒効率シートのURLを表示します")
+async def gear_awakening(interaction: discord.Interaction):
+    await interaction.response.send_message(
+        "🔗 装備覚醒効率(awakening efficiency):\n"
+        "https://docs.google.com/spreadsheets/d/1778ykEIFAdwmHKsvD7eO6IZwJJDqwM1aIkb6-1SG3fs/edit?gid=582548854#gid=582548854"
+    )
+
+@bot.tree.command(name="fantasword", description="幻想Aの装備利用効率のPDFを表示します")
+async def fantasword(interaction: discord.Interaction):
+    await interaction.response.send_message(
+        "📄 幻想Aの装備の利用効率(fantA sword usage):\n"
+        "https://github.com/vanitas743/discord_translator/blob/main/casual_player_path.pdf"
+    )
+
+@bot.tree.command(name="mastery", description="マスタリー効率シートのURLを表示します")
+async def mastery(interaction: discord.Interaction):
+    await interaction.response.send_message(
+        "📊 マスタリー効率(mastery):\n"
+        "https://docs.google.com/spreadsheets/d/1tvkYtDlSYwzMNbKAKzib7faO735zEF8lbaB-u7hQWFs/edit?gid=925000323#gid=925000323"
+    )
+
+@bot.tree.command(name="dimshard", description="次元の欠片ギア情報シートのURLを表示します")
+async def dimshard(interaction: discord.Interaction):
+    await interaction.response.send_message(
+        "💎 次元の欠片ギア(dimensional shard gear):\n"
+        "https://docs.google.com/spreadsheets/d/1SSxR3do2473shLlToiq-zJzLkjfY7rl-4jkmwtC7aoE/edit?gid=1538649277#gid=1538649277"
+    )
+
+@bot.tree.command(name="zodiac", description="星座(zodiac)情報シートのURLを表示します")
+async def zodiac(interaction: discord.Interaction):
+    await interaction.response.send_message(
+        "🌌 星座(zodiac):\n"
+        "https://docs.google.com/spreadsheets/d/1Zxched7d37tyqGwqLSZYUcTD3dI6QDPyqiPSQ-h-_00/edit?gid=1366379943#gid=1366379943"
+    )
+
+@bot.tree.command(name="petoptimizer", description="ペット編成最適化ツールのURLを表示します")
+async def petoptimizer(interaction: discord.Interaction):
+    await interaction.response.send_message(
+        "🐾 ペット編成(pet optimiser):\n"
+        "https://xanthir.com/fclass/pets/"
+    )
+
+@bot.tree.command(name="couponinfo", description="お知らせページのURLを表示します")
+async def couponinfo(interaction: discord.Interaction):
+    await interaction.response.send_message(
+        "📰 お知らせ(info ja):\n"
+        "https://announcement.ekgamesserver.com/?ppk=42f47521-f47a-496b-9e90-af01f0f10c37&l=ja"
+    )
+
+
 
 bot.run(DISCORD_TOKEN)
