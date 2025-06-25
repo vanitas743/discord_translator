@@ -29,6 +29,7 @@ async def on_ready():
         await bot.tree.sync()
         synced = True
     print(f'✅ Bot logged in as {bot.user}')
+    check_announcements.start()
 
 @bot.event
 async def on_message(message):
