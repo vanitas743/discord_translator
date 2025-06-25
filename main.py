@@ -39,6 +39,8 @@ async def on_message(message):
         
     if message.channel.name == "translated":
         return
+        
+    await bot.process_commands(message)
 
     author_name = message.author.display_name
     short_name = author_name[:4]
@@ -62,8 +64,6 @@ async def on_message(message):
         await translated_channel.send(
             f"【{short_name}】: {content}\n⬇\n**{translated}**"
         )
-
-    await bot.process_commands(message)
 
 def translate(text, source_lang, target_lang):
     # keep Japanese after translate
