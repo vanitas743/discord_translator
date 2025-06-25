@@ -31,9 +31,13 @@ async def on_ready():
     print(f'✅ Bot logged in as {bot.user}')
     check_announcements.start()
 
+
 @bot.event
 async def on_message(message):
     if message.author.bot:
+        return
+        
+    if message.channel.name == "translated":
         return
 
     author_name = message.author.display_name
